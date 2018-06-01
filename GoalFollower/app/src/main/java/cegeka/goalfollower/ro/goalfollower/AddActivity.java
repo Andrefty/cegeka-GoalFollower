@@ -1,12 +1,15 @@
 package cegeka.goalfollower.ro.goalfollower;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,7 +25,8 @@ public class AddActivity extends AppCompatActivity {
     Button addbtn = null;
     int a=1;
     String filename="goals";
-
+    Goal item = new Goal();
+    ArrayList<Goal> items=new ArrayList<>(a);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +39,9 @@ public class AddActivity extends AppCompatActivity {
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File myfile = new File(filename);
-                FileOutputStream outputStream;
+
                 if (Validate()) {
-                     Goal item = new Goal();
+
                     item.desc = editTextdesc.getText().toString();
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     try {
@@ -46,26 +49,33 @@ public class AddActivity extends AppCompatActivity {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    ArrayList<Goal> items=new ArrayList<>(a);
+
                     items.add(item);
+                    Addg();
 
-                    try { outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-                    ObjectOutputStream o = new ObjectOutputStream(outputStream);
-                        o.writeObject(items);
-                        o.close();
-                        if(myfile.exists())Toast.makeText(AddActivity.this,"yes",Toast.LENGTH_LONG).show();
-                        a++;
-                    } catch (Exception e) {
-                        Toast.makeText(AddActivity.this,"no",Toast.LENGTH_LONG).show();
-                        e.printStackTrace();
-
-                    }
 
                 }
             }
         });
     }
+public void Addg(){File myfile = new File(this.getFilesDir(), filename);
+    FileOutputStream outputStream;
+    try {
+        outputStream = openFileOutput(filename, MODE_PRIVATE|MODE_APPEND);
+        ObjectOutputStream o = new ObjectOutputStream(outputStream);
+        o.writeObject(items);
+        o.close();
+        if(myfile.exists())Toast.makeText(AddActivity.this,"yes",Toast.LENGTH_LONG).show();
+        a++;
+        Intent intent = new Intent(AddActivity.this, MainActivity.class);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    } catch (Exception e) {
+        Toast.makeText(AddActivity.this,"no",Toast.LENGTH_LONG).show();
+        e.printStackTrace();
 
+    }
+    }
     private boolean Validate() {
         if (editTextdesc.getText().toString().trim().equals("") ||
                 textDate.getText().toString().trim().equals("")) {
