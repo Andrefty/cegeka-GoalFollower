@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">FirstCegeka</string>
+
+    <string-array name="items">
+        <item>peach</item>
+        <item>tomato</item>
+        <item>dog meat</item>
+    </string-array>
+
+    <string-array name="price">
+        <item>0.99$</item>
+        <item>0.65$</item>
+        <item>no price</item>
+    </string-array>
+
+    <string-array name="description">
+        <item>A peach is that stuff that is orange but is not an orange</item>
+        <item>A tomato is fresh when is red</item>
+        <item>Dog Meat is your best companion , more so you can customise him</item>
+    </string-array>
+</resources>
