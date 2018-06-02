@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 1){
             switch (resultCode){
                 case Activity.RESULT_OK:
-                    Toast.makeText(MainActivity.this, "Merge aparent", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(MainActivity.this, "Merge aparent", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     Toast.makeText(MainActivity.this, "nu mrg", Toast.LENGTH_LONG).show();
