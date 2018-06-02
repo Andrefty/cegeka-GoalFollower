@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
             switch (resultCode){
-                case Activity.RESULT_OK:
-                   Toast.makeText(MainActivity.this, "Merge aparent", Toast.LENGTH_SHORT).show();
-                    break;
+                case Activity.RESULT_OK:{
+                    Toast.makeText(MainActivity.this, "Merge aparent ", Toast.LENGTH_SHORT).show();
+                    break;}
                 default:
                     Toast.makeText(MainActivity.this, "nu mrg", Toast.LENGTH_LONG).show();
             }

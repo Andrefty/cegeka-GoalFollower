@@ -61,15 +61,14 @@ public class AddActivity extends AppCompatActivity {
 public void Addg(){File myfile = new File(this.getFilesDir(), filename);
     FileOutputStream outputStream;
     try {
-        outputStream = openFileOutput(filename, MODE_PRIVATE|MODE_APPEND);
+        outputStream = openFileOutput(filename, MODE_APPEND);
         ObjectOutputStream o = new ObjectOutputStream(outputStream);
         o.writeObject(items);
         o.close();
-        if(myfile.exists())Toast.makeText(AddActivity.this,"yes",Toast.LENGTH_LONG).show();
-        a++;
         Intent intent = new Intent(AddActivity.this, MainActivity.class);
+        if(myfile.exists())Toast.makeText(AddActivity.this,"yes",Toast.LENGTH_LONG).show();
         setResult(Activity.RESULT_OK, intent);
-        finish();
+       finish();
     } catch (Exception e) {
         Toast.makeText(AddActivity.this,"no",Toast.LENGTH_LONG).show();
         e.printStackTrace();
