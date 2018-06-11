@@ -32,7 +32,6 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-
         editTextdesc = findViewById(R.id.editText);
         textDate = findViewById(R.id.editText3);
         addbtn = findViewById(R.id.button3);
@@ -58,7 +57,7 @@ public class AddActivity extends AppCompatActivity {
             }
         });
     }
-public void Addg(){File myfile = new File(this.getFilesDir(), filename);
+    public void Addg(){File myfile = new File(this.getFilesDir(), filename);
     FileOutputStream outputStream;
     try {
         outputStream = openFileOutput(filename, MODE_APPEND);
