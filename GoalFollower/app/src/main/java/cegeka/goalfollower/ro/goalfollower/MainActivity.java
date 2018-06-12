@@ -26,17 +26,6 @@ public class MainActivity extends AppCompatActivity {
                 new Intent(MainActivity.this, ListActivity.class);
         startActivity(intent);
     }
-    public void OpenProfileActivity(View view) {
-        Intent intent =
-                new Intent(MainActivity.this, ScoreActivity.class);
-        startActivity(intent);
-    }
-    public void OpenShareActivity(View view) {
-        Intent intent =
-                new Intent(MainActivity.this, ShareGoalActivity.class);
-        startActivity(intent);
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
