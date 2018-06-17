@@ -14,8 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static android.nfc.NdefRecord.createMime;
-import static cegeka.goalfollower.ro.goalfollower.AddActivity.item;
-
+import static cegeka.goalfollower.ro.goalfollower.AddActivity.concat;
 
 public class BeamActivity extends AppCompatActivity implements NfcAdapter.CreateNdefMessageCallback,NfcAdapter.OnNdefPushCompleteCallback {
     NfcAdapter mNfcAdapter;
@@ -40,7 +39,7 @@ public class BeamActivity extends AppCompatActivity implements NfcAdapter.Create
     public NdefMessage createNdefMessage(NfcEvent event) {
         NdefMessage msg = new NdefMessage(
                 new NdefRecord[] { createMime(
-                        "application/cegeka.goalfollower.ro", item.desc.getBytes())
+                        "application/cegeka.goalfollower.ro", concat.getBytes())
                         ,NdefRecord.createApplicationRecord("cegeka.goalfollower.ro")
                 });
         return msg;

@@ -35,11 +35,16 @@ import static android.nfc.NdefRecord.createMime;
 public class AddActivity extends AppCompatActivity {
     EditText editTextdesc = null;
     EditText textDate = null;
+    EditText editTextdescrip=null;
     Button addbtn = null;
     Button beam = null;
-    String filename = "goals";
-    static Goal item = new Goal();
+    static String filename = "goals";
+    Goal item = new Goal();
+    static String concat=null;
     ArrayList<Goal> items = new ArrayList<>();
+    String stupiddesc=null;
+    String stupiddate=null;
+    String stupiddescrip=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
 
         editTextdesc = findViewById(R.id.editText);
+        editTextdescrip=findViewById(R.id.editText5);
         textDate = findViewById(R.id.editText3);
         addbtn = findViewById(R.id.button3);
         beam = findViewById(R.id.beambttn);
@@ -56,14 +62,10 @@ public class AddActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (Validate()) {
-                    item.desc = editTextdesc.getText().toString();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    try {
-                        item.dueDate = sdf.parse(textDate.getText().toString());
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    items.add(item);
+                    stupiddesc = editTextdesc.getText().toString();
+                    stupiddate=textDate.getText().toString();
+                    stupiddescrip=editTextdescrip.getText().toString();
+                    concat=stupiddesc+"/"+stupiddate+"/"+stupiddescrip+"/";
                     Intent intent =
                             new Intent(AddActivity.this, BeamActivity.class);
                     startActivity(intent);
@@ -78,7 +80,8 @@ public class AddActivity extends AppCompatActivity {
                 if (Validate()) {
                     Readf();
                     item.desc = editTextdesc.getText().toString();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    item.descrip=editTextdescrip.getText().toString();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
                     try {
                         item.dueDate = sdf.parse(textDate.getText().toString());
                     } catch (Exception ex) {
@@ -128,7 +131,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private boolean Validate() {
-        if (editTextdesc.getText().toString().trim().equals("") ||
+        if (editTextdesc.getText().toString().trim().equals("") || editTextdescrip.getText().toString().trim().equals("")||
                 textDate.getText().toString().trim().equals("")) {
             Toast.makeText(AddActivity.this,
                     "All the fields are mandatory",
@@ -136,7 +139,7 @@ public class AddActivity extends AppCompatActivity {
             return false;
         }
         SimpleDateFormat format =
-                new SimpleDateFormat("yyyy-MM-dd");
+                new SimpleDateFormat("yyyy-MM-dd-hh-mm");
         Date date = null;
         try {
             date =
