@@ -31,7 +31,6 @@ import static cegeka.goalfollower.ro.goalfollower.AddActivity.filename;
 public class RecActivity extends AppCompatActivity implements NfcAdapter.CreateNdefMessageCallback,NfcAdapter.OnNdefPushCompleteCallback {
     EditText editdesc=null;
     EditText editdate=null;
-    EditText editdescrip=null;
     Button addtolist=null;
     NfcAdapter mmNfcAdapter;
     Goal recitem=new Goal();
@@ -43,7 +42,6 @@ public class RecActivity extends AppCompatActivity implements NfcAdapter.CreateN
         setContentView(R.layout.activity_rec);
         editdesc = findViewById(R.id.editText2);
         editdate = findViewById(R.id.editText4);
-        editdescrip=findViewById(R.id.editText6);
         addtolist = findViewById(R.id.button);
         mmNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (mmNfcAdapter == null) {
@@ -59,7 +57,6 @@ public class RecActivity extends AppCompatActivity implements NfcAdapter.CreateN
             public void onClick(View v) {
                 Readfrec();
                 recitem.desc = editdesc.getText().toString();
-                recitem.descrip=editdescrip.getText().toString();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
                 try {
                     recitem.dueDate = sdf.parse(editdate.getText().toString());
@@ -116,7 +113,6 @@ public class RecActivity extends AppCompatActivity implements NfcAdapter.CreateN
         for (String retval: neconcat.split("/")) {
             if(i==0) editdesc.setText(retval);
             if(i==1) editdate.setText(retval);
-            if(i==2) editdescrip.setText(retval);
             i++;
         }
     }
