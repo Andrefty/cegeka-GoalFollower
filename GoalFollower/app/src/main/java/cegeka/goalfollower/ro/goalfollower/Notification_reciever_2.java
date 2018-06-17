@@ -25,8 +25,8 @@ public class Notification_reciever_2 extends BroadcastReceiver {
             NotificationCompat.Builder builder_2 = new NotificationCompat.Builder(context)
                     .setContentIntent(pendingIntent)
                     .setSmallIcon(R.drawable.robotboi)
-                    .setContentTitle(More_Info.S_name_not[index] + "" + index)
-                    .setContentText(More_Info.S_description_not[index])
+                    .setContentTitle(More_Info.S_name_not.get(index) + "" + index)
+                    .setContentText(More_Info.S_description_not.get(index))
                     .setSound(sound)
                     .setAutoCancel(true);
 

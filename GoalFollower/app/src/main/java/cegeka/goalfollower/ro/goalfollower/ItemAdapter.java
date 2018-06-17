@@ -1,4 +1,4 @@
-package com.example.cristi.firstcegeka;
+package cegeka.goalfollower.ro.goalfollower;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -21,11 +21,13 @@ public class ItemAdapter extends BaseAdapter {
     LayoutInflater mInflater;
     List<String> names;
     List<Date> duedate;
+  //  List<Boolean>checked;
 
-    public ItemAdapter(Context c , List<String> n ,List<Date> d )
+    public ItemAdapter(Context c , List<String> n ,List<Date> d /*, List<Boolean> ce*/)
     {
         names = n;
         duedate = d;
+       // checked = ce;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

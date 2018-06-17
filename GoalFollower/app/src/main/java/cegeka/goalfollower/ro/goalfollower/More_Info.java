@@ -31,19 +31,21 @@ public class More_Info extends AppCompatActivity {
     static boolean[] check = new boolean[1001];
     CheckBox done ;
     ArrayList<Integer> charr = new ArrayList<>();
-    MOreinf itemmf=new MOreinf();
-    ArrayList<MOreinf> ndt= new ArrayList<>(Collections.nCopies(1001, itemmf));
+    String itemmf;
+    String upoi;
     static int index;
     public static int sum ;
     String filenameforcheck="checkbox";
     String filenamefordesc="desctime";
+    String filenameforname="nae234852045";
+
     Button set;
     EditText name_not;
     EditText description_not;
     EditText duration_not;
     TextView desc_not;
-    public static  String[] S_name_not = new String[1001];
-    public  static String[] S_description_not = new String[1001];
+    public static ArrayList<String> S_name_not = new ArrayList<>();
+    public static ArrayList<String> S_description_not =  new ArrayList<>();
     String S_duration_not;
     int I_duration_not;
     int[] durations = new int[1001];
@@ -57,10 +59,11 @@ public class More_Info extends AppCompatActivity {
         setContentView(R.layout.activity_more__info);
         Intent in = getIntent();
         Readfcheck();
+        done = (CheckBox) findViewById(R.id.done_cb);
         for(int i=0;i<charr.size();i++) {check[charr.get(i)]=true;done.setChecked(check[charr.get(i)]);}
         index = in.getIntExtra("com.example.cristi.firstcegeka.Item" , -1);
         Toast.makeText(this, index + "" , Toast.LENGTH_LONG).show();
-        done = (CheckBox) findViewById(R.id.done_cb);
+
 
         done.setChecked(check[index]);
         done.setOnClickListener(new View.OnClickListener() {
@@ -89,29 +92,35 @@ Addgcheck();
         description_not = (EditText) findViewById(R.id.not_description_edit_text);
         duration_not = (EditText) findViewById(R.id.not_time_edit_text);
         desc_not=(TextView) findViewById(R.id.textView4);
-        desc_not.setText(ListActivity.descrips.get(index));
+        desc_not.setText(descrips.get(index));
         //itemmf.des="a";
 //        for(int i=1;i<=1001;i++) ndt.add(itemmf);
         //Adddesc();
+        for(int i=0;i<1001;i++) S_name_not.add("");
+        for(int i=0;i<1001;i++) S_description_not.add("");
+
         Readdesc();
-        itemmf=ndt.get(index);
-        Toast.makeText(More_Info.this,itemmf.nem,Toast.LENGTH_LONG).show();
-        name_not.setText(itemmf.nem);
-        description_not.setText(itemmf.des);
-        duration_not.setText(itemmf.ti+"");
+        Readnem();
+        itemmf=S_name_not.get(index);
+        upoi=S_description_not.get(index);
+        //Toast.makeText(More_Info.this,itemmf.nem,Toast.LENGTH_LONG).show();
+        /*name_not.setText("");
+        description_not.setText("");
+        duration_not.setText("");*/
+        name_not.setText(itemmf);
+        description_not.setText(upoi);
+       // duration_not.setText(itemmf.ti+"");
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 S_duration_not = duration_not.getText().toString();
                 I_duration_not = Integer.parseInt(S_duration_not);
-                itemmf.ti=I_duration_not;
-                itemmf.nem=name_not.getText().toString();
-                S_name_not[index] = itemmf.nem;
-                itemmf.des=description_not.getText().toString();
-                S_description_not[index] =itemmf.des;
+                itemmf=name_not.getText().toString();
+                S_name_not.set(index,itemmf);
+                upoi=description_not.getText().toString();
+                S_description_not.set(index,upoi);
                 durations[index] = I_duration_not;
-                ndt.set(index,itemmf);
                // for (int f=0 ; f<val ; f++)
                // {
 
@@ -128,7 +137,9 @@ Addgcheck();
                // Intent intent6 = new Intent(getApplicationContext(), ListActivity.class);
                // startActivity(intent6);
                 Adddesc();
-                ndt.clear();
+                Addnem();
+                S_name_not.clear();
+                S_description_not.clear();
                 finish();
 
 
@@ -150,11 +161,26 @@ Addgcheck();
         } catch (Exception e) {
             Toast.makeText(More_Info.this, "no", Toast.LENGTH_LONG).show();
             e.printStackTrace();
+        }
+    }
+public void Addnem(){
+            File myfile = new File(this.getFilesDir(), filenameforname);
+            FileOutputStream outputStream;
+            try {
+                outputStream = openFileOutput(filenameforname, MODE_PRIVATE);
+                ObjectOutputStream o = new ObjectOutputStream(outputStream);
+                o.reset();
+                o.writeObject(S_name_not);
+                o.flush();
+                o.close();
+                if (myfile.exists()) Toast.makeText(More_Info.this, "yes", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(More_Info.this, "no", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
 
+            }
         }
 
-
-    }
     public void Adddesc() {
         File myfile = new File(this.getFilesDir(), filenamefordesc);
         FileOutputStream outputStream;
@@ -162,7 +188,7 @@ Addgcheck();
             outputStream = openFileOutput(filenamefordesc, MODE_PRIVATE);
             ObjectOutputStream o = new ObjectOutputStream(outputStream);
             o.reset();
-            o.writeObject(ndt);
+            o.writeObject(S_description_not);
             o.flush();
             o.close();
             if (myfile.exists()) Toast.makeText(More_Info.this, "yes", Toast.LENGTH_LONG).show();
@@ -191,8 +217,17 @@ Addgcheck();
         try {
             fis = openFileInput(filenamefordesc);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ndt = (ArrayList<MOreinf>) ois.readObject();
-
+            S_description_not = (ArrayList<String>) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void Readnem(){FileInputStream fis;
+        try {
+            fis = openFileInput(filenameforname);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            S_name_not = (ArrayList<String>) ois.readObject();
             ois.close();
         } catch (Exception e) {
             e.printStackTrace();
